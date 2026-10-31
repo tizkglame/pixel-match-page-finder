@@ -45,8 +45,8 @@ function Customers() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const r = schema.safeParse(form);
-    if (!r.success) return toast.error(r.error.issues[0].message);
-    save.mutate({ ...empty, ...r.data, id: edit?.id });
+    if (!r.success) return void toast.error(r.error.issues[0]?.message ?? "Invalid input");
+    save.mutate({ name: r.data.name, email: r.data.email, phone: r.data.phone ?? "", company: r.data.company ?? "", address: r.data.address ?? "", ...(edit?.id ? { id: edit.id } : {}) });
   };
 
   return (

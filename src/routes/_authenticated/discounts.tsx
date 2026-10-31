@@ -38,9 +38,9 @@ function Discounts() {
   const open = (d?: D) => { setEdit(d ?? {}); setF(d ? { code: d.code, name: d.name, type: d.type, value: d.value, expires_on: d.expires_on ?? "", usage_limit: d.usage_limit == null ? "" : String(d.usage_limit), active: d.active } : blank); };
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!f.code.trim() || !f.name.trim()) return toast.error("Code and name are required");
-    if (!(Number(f.value) > 0)) return toast.error("Value must be greater than 0");
-    if (f.type === "percentage" && Number(f.value) > 100) return toast.error("Percentage cannot exceed 100");
+    if (!f.code.trim() || !f.name.trim()) return void toast.error("Code and name are required");
+    if (!(Number(f.value) > 0)) return void toast.error("Value must be greater than 0");
+    if (f.type === "percentage" && Number(f.value) > 100) return void toast.error("Percentage cannot exceed 100");
     save.mutate(undefined);
   };
   const state = (d: D) => !d.active ? "inactive" : d.expires_on && d.expires_on < todayISO() ? "expired" : d.usage_limit != null && d.used_count >= d.usage_limit ? "exhausted" : "active";
