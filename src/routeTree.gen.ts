@@ -16,6 +16,8 @@ import { Route as AuthenticatedCustomersRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDiscountsRouteImport } from './routes/_authenticated/discounts'
 import { Route as AuthenticatedPlansRouteImport } from './routes/_authenticated/plans'
 import { Route as AuthenticatedProductsRouteImport } from './routes/_authenticated/products'
+import { Route as AuthenticatedSubscriptionsIndexRouteImport } from './routes/_authenticated/subscriptions.index'
+import { Route as AuthenticatedSubscriptionsIdRouteImport } from './routes/_authenticated/subscriptions.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -51,6 +53,18 @@ const AuthenticatedProductsRoute = AuthenticatedProductsRouteImport.update({
   path: '/products',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSubscriptionsIndexRoute =
+  AuthenticatedSubscriptionsIndexRouteImport.update({
+    id: '/subscriptions/',
+    path: '/subscriptions/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSubscriptionsIdRoute =
+  AuthenticatedSubscriptionsIdRouteImport.update({
+    id: '/subscriptions/$id',
+    path: '/subscriptions/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,6 +73,8 @@ export interface FileRoutesByFullPath {
   '/discounts': typeof AuthenticatedDiscountsRoute
   '/plans': typeof AuthenticatedPlansRoute
   '/products': typeof AuthenticatedProductsRoute
+  '/subscriptions/$id': typeof AuthenticatedSubscriptionsIdRoute
+  '/subscriptions/': typeof AuthenticatedSubscriptionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -67,6 +83,8 @@ export interface FileRoutesByTo {
   '/discounts': typeof AuthenticatedDiscountsRoute
   '/plans': typeof AuthenticatedPlansRoute
   '/products': typeof AuthenticatedProductsRoute
+  '/subscriptions/$id': typeof AuthenticatedSubscriptionsIdRoute
+  '/subscriptions': typeof AuthenticatedSubscriptionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,13 +95,30 @@ export interface FileRoutesById {
   '/_authenticated/discounts': typeof AuthenticatedDiscountsRoute
   '/_authenticated/plans': typeof AuthenticatedPlansRoute
   '/_authenticated/products': typeof AuthenticatedProductsRoute
+  '/_authenticated/subscriptions/$id': typeof AuthenticatedSubscriptionsIdRoute
+  '/_authenticated/subscriptions/': typeof AuthenticatedSubscriptionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/customers' | '/discounts' | '/plans' | '/products'
+    | '/'
+    | '/auth'
+    | '/customers'
+    | '/discounts'
+    | '/plans'
+    | '/products'
+    | '/subscriptions/$id'
+    | '/subscriptions/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/customers' | '/discounts' | '/plans' | '/products'
+  to:
+    | '/'
+    | '/auth'
+    | '/customers'
+    | '/discounts'
+    | '/plans'
+    | '/products'
+    | '/subscriptions/$id'
+    | '/subscriptions'
   id:
     | '__root__'
     | '/'
@@ -93,6 +128,8 @@ export interface FileRouteTypes {
     | '/_authenticated/discounts'
     | '/_authenticated/plans'
     | '/_authenticated/products'
+    | '/_authenticated/subscriptions/$id'
+    | '/_authenticated/subscriptions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -152,6 +189,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProductsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/subscriptions/': {
+      id: '/_authenticated/subscriptions/'
+      path: '/subscriptions'
+      fullPath: '/subscriptions/'
+      preLoaderRoute: typeof AuthenticatedSubscriptionsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/subscriptions/$id': {
+      id: '/_authenticated/subscriptions/$id'
+      path: '/subscriptions/$id'
+      fullPath: '/subscriptions/$id'
+      preLoaderRoute: typeof AuthenticatedSubscriptionsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -160,6 +211,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDiscountsRoute: typeof AuthenticatedDiscountsRoute
   AuthenticatedPlansRoute: typeof AuthenticatedPlansRoute
   AuthenticatedProductsRoute: typeof AuthenticatedProductsRoute
+  AuthenticatedSubscriptionsIdRoute: typeof AuthenticatedSubscriptionsIdRoute
+  AuthenticatedSubscriptionsIndexRoute: typeof AuthenticatedSubscriptionsIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -167,6 +220,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDiscountsRoute: AuthenticatedDiscountsRoute,
   AuthenticatedPlansRoute: AuthenticatedPlansRoute,
   AuthenticatedProductsRoute: AuthenticatedProductsRoute,
+  AuthenticatedSubscriptionsIdRoute: AuthenticatedSubscriptionsIdRoute,
+  AuthenticatedSubscriptionsIndexRoute: AuthenticatedSubscriptionsIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
