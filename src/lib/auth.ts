@@ -12,3 +12,10 @@ export async function loadSession() {
 }
 
 export const homeFor = (role: Role) => (role === "customer" ? "/portal" : "/dashboard");
+
+import { redirect } from "@tanstack/react-router";
+export function guard(allowed: Role[]) {
+  return ({ context }: { context: { role: Role } }) => {
+    if (!allowed.includes(context.role)) throw redirect({ to: homeFor(context.role) });
+  };
+}
