@@ -39,9 +39,9 @@ function Plans() {
   const open = (p?: P) => { setEdit(p ?? {}); setF(p ? { ...blank, ...p, start_date: p.start_date ?? "", end_date: p.end_date ?? "" } : blank); };
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!f.name.trim()) return toast.error("Name is required");
-    if (Number(f.min_quantity) < 1) return toast.error("Minimum quantity must be at least 1");
-    if (f.start_date && f.end_date && f.end_date < f.start_date) return toast.error("End date must be after start date");
+    if (!f.name.trim()) return void toast.error("Name is required");
+    if (Number(f.min_quantity) < 1) return void toast.error("Minimum quantity must be at least 1");
+    if (f.start_date && f.end_date && f.end_date < f.start_date) return void toast.error("End date must be after start date");
     save.mutate(undefined);
   };
 

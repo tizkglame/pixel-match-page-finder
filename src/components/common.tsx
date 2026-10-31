@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export function PageHeader({ title, subtitle, actions }: { title: string; subtitle?: string; actions?: ReactNode }) {
+export function PageHeader({ title, subtitle, actions }: { title: string; subtitle?: string | undefined; actions?: ReactNode }) {
   return (
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
@@ -30,7 +30,7 @@ const statusStyles: Record<string, string> = {
 
 export function StatusBadge({ status }: { status: string }) {
   return (
-    <span className={cn("inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ring-1 ring-inset", statusStyles[status] ?? statusStyles.draft)}>
+    <span className={cn("inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ring-1 ring-inset", statusStyles[status] ?? statusStyles["draft"])}>
       {status}
     </span>
   );
@@ -90,7 +90,7 @@ export function Pager({ page, pages, total, setPage }: { page: number; pages: nu
   );
 }
 
-export function Field({ label, children, hint }: { label: string; children: ReactNode; hint?: string }) {
+export function Field({ label, children, hint }: { label: string; children: ReactNode; hint?: string | undefined }) {
   return (
     <label className="grid gap-1.5 text-sm">
       <span className="font-medium text-foreground">{label}</span>

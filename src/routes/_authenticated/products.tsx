@@ -53,9 +53,9 @@ function Products() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim()) return toast.error("Name is required");
-    if (Number(form.sales_price) < 0 || Number(form.cost_price) < 0 || isNaN(Number(form.sales_price))) return toast.error("Prices must be positive numbers");
-    if (variants.some((v) => !v.name.trim())) return toast.error("Each variant needs a name");
+    if (!form.name.trim()) return void toast.error("Name is required");
+    if (Number(form.sales_price) < 0 || Number(form.cost_price) < 0 || isNaN(Number(form.sales_price))) return void toast.error("Prices must be positive numbers");
+    if (variants.some((v) => !v.name.trim())) return void toast.error("Each variant needs a name");
     save.mutate(undefined);
   };
 

@@ -83,13 +83,13 @@ function SubEditor() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!f.customer_id || !f.plan_id) return toast.error("Choose a customer and a plan");
-    if (!f.start_date) return toast.error("Start date is required");
-    if (f.expiry_date && f.expiry_date < f.start_date) return toast.error("Expiry must be after start date");
-    if (lines.length === 0) return toast.error("Add at least one line item");
-    if (lines.some((l) => !l.product_id)) return toast.error("Choose a product for every line");
-    if (plan && lines.some((l) => l.quantity < plan.min_quantity)) return toast.error(`Plan "${plan.name}" requires a minimum quantity of ${plan.min_quantity}`);
-    if (f.tax_rate < 0 || f.tax_rate > 100) return toast.error("Tax rate must be between 0 and 100");
+    if (!f.customer_id || !f.plan_id) return void toast.error("Choose a customer and a plan");
+    if (!f.start_date) return void toast.error("Start date is required");
+    if (f.expiry_date && f.expiry_date < f.start_date) return void toast.error("Expiry must be after start date");
+    if (lines.length === 0) return void toast.error("Add at least one line item");
+    if (lines.some((l) => !l.product_id)) return void toast.error("Choose a product for every line");
+    if (plan && lines.some((l) => l.quantity < plan.min_quantity)) return void toast.error(`Plan "${plan.name}" requires a minimum quantity of ${plan.min_quantity}`);
+    if (f.tax_rate < 0 || f.tax_rate > 100) return void toast.error("Tax rate must be between 0 and 100");
     save.mutate(undefined);
   };
 

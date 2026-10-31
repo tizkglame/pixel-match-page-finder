@@ -47,7 +47,7 @@ function AuthPage() {
     setBusy("form");
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(null);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     await finish();
   }
 

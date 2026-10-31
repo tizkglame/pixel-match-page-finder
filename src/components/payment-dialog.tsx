@@ -21,8 +21,8 @@ export function PaymentDialog({ invoice, balance, onClose }: { invoice: { id: st
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const a = Number(f.amount);
-    if (!(a > 0)) return toast.error("Amount must be greater than 0");
-    if (a > balance + 0.001) return toast.error(`Amount exceeds outstanding balance of ${money(balance)}`);
+    if (!(a > 0)) return void toast.error("Amount must be greater than 0");
+    if (a > balance + 0.001) return void toast.error(`Amount exceeds outstanding balance of ${money(balance)}`);
     save.mutate(undefined);
   };
   return (
